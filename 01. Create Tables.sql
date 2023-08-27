@@ -23,15 +23,15 @@ DROP TABLE CADUser;
 -- ------
 -- Criação da tabela CADUser
 CREATE TABLE CADUser (
-    id_user     VARCHAR(10) PRIMARY KEY,
+    id_user     SERIAL PRIMARY KEY,
     login       VARCHAR(10) UNIQUE,
-    senha       VARCHAR(10),
+    senha       TEXT NOT NULL,
     nome        VARCHAR(50)
 );
 
 -- Criação da tabela CADEmpresa
 CREATE TABLE CADEmpresa (
-    id_empresa      NUMERIC(10) PRIMARY KEY,
+    id_empresa      SERIAL PRIMARY KEY,
     cnpj_empresa    VARCHAR(50) UNIQUE,
     razao_social    VARCHAR(155) UNIQUE,
     nome_fantasia   VARCHAR(155)
@@ -49,7 +49,7 @@ CREATE TABLE CADConta (
 -- Criação da tabela CADEstoque
 CREATE TABLE CADEstoque (
     id_estoque      VARCHAR(20) PRIMARY KEY,
-    id_empresa      NUMERIC(10),
+    id_empresa      INTEGER,
     nome_estoque    VARCHAR(20) UNIQUE,
     CONSTRAINT      fk_CADEmpresa_CADEstoque FOREIGN KEY (id_empresa) REFERENCES CADEmpresa(id_empresa)
 );
@@ -75,10 +75,10 @@ CREATE TABLE CADParceiro (
 -- ------
 -- Criação da tabela DOCEntrada
 CREATE TABLE DOCEntrada(
-    id_doc      NUMERIC(10) PRIMARY KEY,
-    id_empresa  NUMERIC(10),
+    id_doc      SERIAL PRIMARY KEY,
+    id_empresa  INTEGER,
     id_parceiro VARCHAR(50),
-    id_user     VARCHAR(10),
+    id_user     INTEGER,
     tipo_doc    CHAR(1),
     data_doc    DATE,
     data_venc   DATE,
@@ -90,7 +90,7 @@ CREATE TABLE DOCEntrada(
 
 -- Criação da tabela DOCEntradaLinha
 CREATE TABLE DOCEntradaLinha(
-    id_doc      NUMERIC(10),
+    id_doc      INTEGER,
     id_item     VARCHAR(20),
     id_conta    VARCHAR(20),
     id_estoque  VARCHAR(20),
@@ -106,10 +106,10 @@ CREATE TABLE DOCEntradaLinha(
 
 -- Criação da tabela DOCPagamento
 CREATE TABLE DOCPagamento(
-    id_doc      NUMERIC(10) PRIMARY KEY,
-    id_empresa  NUMERIC(10),
+    id_doc      SERIAL PRIMARY KEY,
+    id_empresa  INTEGER,
     id_parceiro VARCHAR(50),
-    id_user     VARCHAR(10),
+    id_user     INTEGER,
     tipo_doc    CHAR(1),
     data_doc    DATE,
     data_venc   DATE,
@@ -122,10 +122,10 @@ CREATE TABLE DOCPagamento(
 
 -- Criação da tabela DOCPagamentoLinha
 CREATE TABLE DOCPagamentoLinha(
-    id_doc      NUMERIC(10),
+    id_doc      INTEGER,
     id_conta    VARCHAR(20),
     tipo_doc    CHAR(1),
-    id_doc_pag  NUMERIC(10),
+    id_doc_pag  INTEGER,
     valor       NUMERIC(19,6),
     num_linha   NUMERIC(10),
     CONSTRAINT  fk_DOCPagamento_DOCPagamentoLinha   FOREIGN KEY (id_doc)    REFERENCES DOCPagamento(id_doc),
@@ -135,10 +135,10 @@ CREATE TABLE DOCPagamentoLinha(
 
 -- Criação da tabela DOCSaida
 CREATE TABLE DOCSaida(
-    id_doc      NUMERIC(10) PRIMARY KEY,
-    id_empresa  NUMERIC(10),
+    id_doc      SERIAL PRIMARY KEY,
+    id_empresa  INTEGER,
     id_parceiro VARCHAR(50),
-    id_user     VARCHAR(10),
+    id_user     INTEGER,
     tipo_doc    CHAR(1),
     data_doc    DATE,
     data_venc   DATE,
@@ -150,7 +150,7 @@ CREATE TABLE DOCSaida(
 
 -- Criação da tabela DOCSaidaLinha
 CREATE TABLE DOCSaidaLinha(
-    id_doc      NUMERIC(10),
+    id_doc      INTEGER,
     id_item     VARCHAR(20),
     id_conta    VARCHAR(20),
     id_estoque  VARCHAR(20),
@@ -165,10 +165,10 @@ CREATE TABLE DOCSaidaLinha(
 
 -- Criação da tabela DOCRecebimento
 CREATE TABLE DOCRecebimento(
-    id_doc      NUMERIC(10) PRIMARY KEY,
-    id_empresa  NUMERIC(10),
+    id_doc      SERIAL PRIMARY KEY,
+    id_empresa  INTEGER,
     id_parceiro VARCHAR(50),
-    id_user     VARCHAR(10),
+    id_user     INTEGER,
     tipo_doc    CHAR(1),
     data_doc    DATE,
     data_venc   DATE,
@@ -180,10 +180,10 @@ CREATE TABLE DOCRecebimento(
 
 -- Criação da tabela DOCRecebimentoLinha
 CREATE TABLE DOCRecebimentoLinha(
-    id_doc      NUMERIC(10),
+    id_doc      INTEGER,
     id_conta    VARCHAR(20),
     tipo_doc    CHAR(1),
-    id_doc_pag  NUMERIC(10),
+    id_doc_pag  INTEGER,
     valor       NUMERIC(19,6),
     num_linha   NUMERIC(10),
     CONSTRAINT  fk_DOCPagamento_DOCRecebimentoLinha FOREIGN KEY (id_doc)    REFERENCES DOCPagamento(id_doc),
@@ -195,11 +195,11 @@ CREATE TABLE DOCRecebimentoLinha(
 -- ------
 -- Criação da tabela TRAFinanceira
 CREATE TABLE TRAFinanceira(
-    id_tran     NUMERIC(10) PRIMARY KEY,
-    id_doc      NUMERIC(10),
-    id_empresa  NUMERIC(10),
+    id_tran     SERIAL PRIMARY KEY,
+    id_doc      INTEGER,
+    id_empresa  INTEGER,
     id_parceiro VARCHAR(10),
-    id_user	    VARCHAR(10),
+    id_user	    INTEGER,
     tipo_tran   CHAR(1),
     data_tran   DATE,
     CONSTRAINT  fk_CADEmpresa_TRAFinanceira     FOREIGN KEY (id_empresa)    REFERENCES CADEmpresa(id_empresa),
@@ -210,7 +210,7 @@ CREATE TABLE TRAFinanceira(
 
 -- Criação da tabela TRAFinanceiraLinha
 CREATE TABLE TRAFinanceiraLinha(
-    id_tran     NUMERIC(10),
+    id_tran     INTEGER,
     id_conta    VARCHAR(20),
     debcred     CHAR(1),
     debito      NUMERIC(19,6),
@@ -223,7 +223,7 @@ CREATE TABLE TRAFinanceiraLinha(
 
 -- Criação da tabela TRAEstoque
 CREATE TABLE TRAEstoque(
-    id_tran     NUMERIC(10) PRIMARY KEY,
+    id_tran     SERIAL PRIMARY KEY,
     id_estoque  VARCHAR(20),
     id_item     VARCHAR(20),
     entsai      CHAR(1),
@@ -237,7 +237,7 @@ CREATE TABLE TRAEstoque(
 
 -- Criação da tabela TRAReconciliacao
 CREATE TABLE TRAReconciliacao(
-    id_recon    NUMERIC(10) PRIMARY KEY,
+    id_recon    SERIAL PRIMARY KEY,
     tipo_trecon CHAR(1),
     data_recon  DATE,
     CONSTRAINT  ck_debcred_TRAReconciliacao CHECK (tipo_trecon IN('P','R'))
@@ -245,8 +245,8 @@ CREATE TABLE TRAReconciliacao(
 
 -- Criação da tabela TRAReconLinhas
 CREATE TABLE TRAReconLinhas(
-    id_recon    NUMERIC(10),
-    id_tran     NUMERIC(10),
+    id_recon    INTEGER,
+    id_tran     INTEGER,
     id_conta    VARCHAR(20),
     debcred     CHAR(1),
     valor       NUMERIC(19,6),
