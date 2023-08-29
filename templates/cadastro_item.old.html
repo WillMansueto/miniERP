@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %}Cadastro do Item{% endblock %}</h1>
+    <form method="post">
+      <div class="row">
+        <div class="six columns">
+          <label for="id_item">Código do Item</label>
+          <input class="u-full-width" type="text" placeholder="Código do Item" id="id_item" name="id_item">
+        </div>
+        <div class="six columns">
+          <label for="nome_item">Nome do Item</label>
+          <input class="u-full-width" type="text" placeholder="Nome do Item" id="nome_item" name="nome_item">
+        </div>
+      </div>
+      <input class="button-primary" type="submit" value="Adicionar">
+    </form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %}Boas vindas {{g.user[3]}} {% endblock %}</h1>
+    <div class="row">
+      <div class="three columns">
+        <a href="{{ url_for('cadastro_item') }}" class="button">Cadastro do item</a>
+      </div>
+      <div class="three columns">
+        <a href="{{ url_for('cadastro_empresa') }}" class="button">Cadastro Empresa</a>
+      </div>
+      <div class="three columns">
+        <a href="{{ url_for('cadastro_conta') }}" class="button">Cadastro Conta</a>
+      </div>
+      <div class="three columns">
+        <a href="{{ url_for('cadastro_estoque') }}" class="button">Cadastro Estoque</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="three columns">
+        <a href="{{ url_for('user_all') }}" class="button">Lista de Usuários</a>
+      </div>
+      <div class="three columns">
+        <a href="{{ url_for('item_all') }}" class="button">Listar itens</a>
+      </div>
+      <div class="three columns">
+        <a href="{{ url_for('itens') }}" class="button">Listar itens</a>
+      </div>
+      <div class="three columns">
+        <a href="{{ url_for('itens') }}" class="button">Listar itens</a>
+      </div>
+    </div>
+{% endblock %}

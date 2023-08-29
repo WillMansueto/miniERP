@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <article class="message is-success">
+        <div class="message-body">
+            <p>{{ message }}</p>
+        </div>
+    </article>
+{% endfor %}
+
+<h1 class='title'>{% block title %}Cadastro de Usuário{% endblock %}</h1>
+<form method="POST">
+  <div class="row">
+    <div class='six columns'>
+      <div class='field'>
+        {{ form.hidden_tag() }}
+        {{ form.login.label(class='label') }}
+        {{ form.login(class='u-full-width') }}
+      </div>
+    </div>
+    <div class='six columns'>
+      <div class='field'>
+        {{ form.nome.label(class='label') }}
+        {{ form.nome(class='u-full-width') }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class='six columns'>
+      <div class='field'>
+        {{ form.senha.label(class='label') }}
+        {{ form.senha(class='u-full-width') }}
+      </div>
+    </div>
+    <div class='six columns'>
+      <div class='field'>
+        {{ form.senha2.label(class='label') }}
+        {{ form.senha2(class='u-full-width') }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class='six columns'>
+      <div class="field">
+        {{ form.submit(class='button') }}
+      </div>
+    </div>
+  </div>
+</form>
+
+<br/><br/>
+
+{% endblock %}

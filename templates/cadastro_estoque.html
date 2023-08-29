@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <article class="message is-success">
+        <div class="message-body">
+            <p>{{ message }}</p>
+        </div>
+    </article>
+{% endfor %}
+
+<h1 class='title'>{% block title %}Cadastro de Estoque{% endblock %}</h1>
+<form method="POST">
+  <div class="row">
+    <div class='six columns'>
+      <div class='field'>
+        {{ form.hidden_tag() }}
+        {{ form.id_estoque.label(class='label') }}
+        {{ form.id_estoque(class='u-full-width') }}
+      </div>
+    </div>
+    <div class='six columns'>
+      <div class='field'>
+        {{ form.id_empresa.label(class='label') }}
+        {{ form.id_empresa(class='u-full-width') }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class='six columns'>
+      <div class='field'>
+        {{ form.nome_estoque.label(class='label') }}
+        {{ form.nome_estoque(class='u-full-width') }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class='six columns'>
+      <div class="field">
+        {{ form.submit(class='button') }}
+      </div>
+    </div>
+  </div>
+</form>
+
+<br/><br/>
+
+{% endblock %}

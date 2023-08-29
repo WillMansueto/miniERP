@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for message in get_flashed_messages() %}
+  <article class="message is-success">
+    <div class="message-body">
+      <p>{{ message }}</p>
+    </div>
+  </article>
+{% endfor %}
+  <h1>{% block title %}Relação de Usuários{% endblock %}</h1>
+
+    <table class="u-full-width">
+        <thead>
+          <tr>
+            <th>Código do usuário</th>
+            <th>Login</th>
+            <th>Nome</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[3] }}</td>
+                <td><a class="button" href="{{ url_for('user_delete', id=user[0]) }}"> delete </a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+{% endblock %}
